@@ -1,0 +1,14 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+drf-spectacular
+django-filter
+psycopg
+Pillow
+langchain
+langchain-groq
+pydantic
+python-dotenv
+pytest
+pytest-django
