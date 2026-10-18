@@ -25,11 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'books',
-    'documents',
-    'agent',
-    'insights',
+    'members',
+    'core',
 ]
 
 
@@ -109,7 +106,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+AUTH_USER_MODEL = 'members.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
