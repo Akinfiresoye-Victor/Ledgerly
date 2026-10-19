@@ -46,6 +46,7 @@ FILE_KIND=(
     ("receipt", "Receipt"),
     ("transfer", "Transfer"),
     ("statement", "Statement"),
+    ("other", "Other"),
 )
 
 FILE_STATUS=(
