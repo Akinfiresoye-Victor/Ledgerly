@@ -1,0 +1,17 @@
+Ledgerly
+
+Verify your email
+
+Hi {{ user_name }},
+
+Use this code to finish setting up your Ledgerly account:
+
+{{ otp_code }}
+
+Enter this code in Ledgerly to verify your email address.
+
+Please don't share this verification code with anyone.
+
+If you didn't create a Ledgerly account, you can safely ignore this email.
+
+Sent with care by Ledgerly

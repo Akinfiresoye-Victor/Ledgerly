@@ -1,17 +1,18 @@
 from pathlib import Path
 import os
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from decouple import config
+
+
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)=y8vtx_3y(=hjo_hd+2$vmeuwc71qc1f$mc(^2a1rw4q#xsf9'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -101,6 +102,28 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', # Everything requires login by default
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+
+EMAIL_BACKEND = 'zoho_zeptomail.backend.zeptomail_backend.ZohoZeptoMailEmailBackend'
+ZOHO_ZEPTOMAIL_API_KEY_TOKEN = config('ZEPTOMAIL_API_TOKEN')
+ZOHO_ZEPTOMAIL_HOSTED_REGION = 'zeptomail.zoho.com'
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Estate Web <no-reply@estatewebng.com>')
+EMAIL_PORT=587
+
+
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
@@ -118,12 +141,3 @@ AUTH_USER_MODEL = 'members.User'
 
 STATIC_URL = 'static/'
 
-
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
