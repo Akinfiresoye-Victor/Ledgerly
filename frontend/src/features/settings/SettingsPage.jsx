@@ -24,17 +24,14 @@ export function SettingsPage() {
   const [isSaved, setIsSaved] = useState(false);
   const [savedMessage, setSavedMessage] = useState("");
 
-  // Avatar state
   const [avatarPreview, setAvatarPreview] = useState(user?.avatar || null);
 
-  // Profile Data
   const [profileData, setProfileData] = useState({
     fullName: user?.full_name || "Adeola Samuel",
     email: user?.email || "adebusiness@gmail.com",
     phone: "801 234 5678",
   });
 
-  // Business Data
   const [businessData, setBusinessData] = useState({
     businessName: user?.business_name || "Adeola's Electronics",
     businessType: user?.business_type || "Retail",
@@ -45,7 +42,6 @@ export function SettingsPage() {
     currency: "NGN (₦)",
   });
 
-  // Security Data
   const [securityData, setSecurityData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -53,7 +49,6 @@ export function SettingsPage() {
     twoFactorEnabled: true,
   });
 
-  // Notifications Data
   const [notificationsData, setNotificationsData] = useState({
     emailReceipts: true,
     emailWeeklySummary: true,
@@ -63,7 +58,6 @@ export function SettingsPage() {
     whatsappAlerts: true,
   });
 
-  // Handle Photo Upload
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -128,7 +122,6 @@ export function SettingsPage() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      {/* Hidden File Input for Photo Upload */}
       <input
         type="file"
         accept="image/*"
@@ -137,7 +130,6 @@ export function SettingsPage() {
         className="hidden"
       />
 
-      {/* Header */}
       <div>
         <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
           Settings
@@ -147,7 +139,6 @@ export function SettingsPage() {
         </p>
       </div>
 
-      {/* Tabs Bar */}
       <div className="flex items-center gap-2 border-b border-slate-200/80 pb-3 overflow-x-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -170,7 +161,6 @@ export function SettingsPage() {
         })}
       </div>
 
-      {/* Success Banner */}
       {isSaved && (
         <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center gap-3 animate-in fade-in">
           <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
@@ -180,7 +170,6 @@ export function SettingsPage() {
         </div>
       )}
 
-      {/* ================= TAB 1: PROFILE ================= */}
       {activeTab === "Profile" && (
         <form onSubmit={handleProfileSubmit} className="space-y-6 animate-in fade-in duration-200">
           <Card className="p-6 space-y-6">
@@ -193,7 +182,6 @@ export function SettingsPage() {
               </p>
             </div>
 
-            {/* Avatar Row */}
             <div className="flex items-center gap-4 py-2 border-y border-slate-100">
               <div className="relative group">
                 {avatarPreview ? (
@@ -257,7 +245,6 @@ export function SettingsPage() {
               />
             </div>
 
-            {/* Phone */}
             <div className="w-full flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-slate-700">
                 Phone number (optional)
@@ -287,7 +274,6 @@ export function SettingsPage() {
         </form>
       )}
 
-      {/* ================= TAB 2: BUSINESS ================= */}
       {activeTab === "Business" && (
         <form onSubmit={handleBusinessSubmit} className="space-y-6 animate-in fade-in duration-200">
           <Card className="p-6 space-y-5">
@@ -321,11 +307,11 @@ export function SettingsPage() {
                   }
                   className="w-full min-h-[44px] px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:border-[#0F3A2E] focus:ring-1 focus:ring-[#0F3A2E] font-medium"
                 >
-                  <option value="Retail">Retail & Consumer Goods</option>
+                  <option value="Retail">Retail &amp; Consumer Goods</option>
                   <option value="Services">Professional Services</option>
-                  <option value="Wholesale">Wholesale & Distribution</option>
-                  <option value="Freelancer">Freelance & Consulting</option>
-                  <option value="Technology">Technology & Software</option>
+                  <option value="Wholesale">Wholesale &amp; Distribution</option>
+                  <option value="Freelancer">Freelance &amp; Consulting</option>
+                  <option value="Technology">Technology &amp; Software</option>
                 </select>
               </div>
             </div>
@@ -392,7 +378,6 @@ export function SettingsPage() {
         </form>
       )}
 
-      {/* ================= TAB 3: SECURITY ================= */}
       {activeTab === "Security" && (
         <form onSubmit={handleSecuritySubmit} className="space-y-6 animate-in fade-in duration-200">
           <Card className="p-6 space-y-6">
@@ -405,7 +390,6 @@ export function SettingsPage() {
               </p>
             </div>
 
-            {/* Change Password */}
             <div className="space-y-4 pt-2">
               <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <KeyRound className="w-4 h-4 text-emerald-600" />
@@ -444,7 +428,6 @@ export function SettingsPage() {
               </div>
             </div>
 
-            {/* 2FA Section */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
@@ -486,7 +469,6 @@ export function SettingsPage() {
         </form>
       )}
 
-      {/* ================= TAB 4: NOTIFICATIONS ================= */}
       {activeTab === "Notifications" && (
         <form onSubmit={handleNotificationsSubmit} className="space-y-6 animate-in fade-in duration-200">
           <Card className="p-6 space-y-6">
@@ -499,7 +481,6 @@ export function SettingsPage() {
               </p>
             </div>
 
-            {/* Email Notifications */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <Mail className="w-4 h-4 text-emerald-600" />
@@ -510,7 +491,7 @@ export function SettingsPage() {
                 {[
                   {
                     key: "emailReceipts",
-                    title: "Receipt & Invoice Processed",
+                    title: "Receipt &amp; Invoice Processed",
                     desc: "Receive an email summary whenever AI reconciles uploaded documents.",
                   },
                   {
@@ -548,7 +529,6 @@ export function SettingsPage() {
               </div>
             </div>
 
-            {/* In-App & Instant Alerts */}
             <div className="space-y-3 pt-4 border-t border-slate-100">
               <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <MessageSquare className="w-4 h-4 text-emerald-600" />

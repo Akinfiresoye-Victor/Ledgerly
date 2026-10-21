@@ -12,7 +12,6 @@
   }
 }
 
-/* Custom scrollbars for clean UI, especially internal table scrolls */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -29,7 +28,6 @@
   background: #94a3b8;
 }
 
-/* Subtle glow animations for OTP verifying state */
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
@@ -62,7 +60,6 @@
   animation: spin-slow 8s linear infinite;
 }
 
-/* Floating animations for brand panel mockup and glass badges */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
@@ -102,7 +99,6 @@
   animation: float-phone 6s ease-in-out infinite;
 }
 
-/* Live graph pulse & live metrics */
 @keyframes graph-pulse {
   0%, 100% {
     transform: translateY(0px) scaleY(1);

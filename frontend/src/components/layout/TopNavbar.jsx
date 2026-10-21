@@ -25,7 +25,6 @@ export function TopNavbar() {
 
   const navRef = useRef(null);
 
-  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -94,12 +93,10 @@ export function TopNavbar() {
       ref={navRef}
       className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4"
     >
-      {/* Mobile brand indicator */}
       <div className="flex items-center gap-3 md:hidden">
         <BrandLogo size="sm" />
       </div>
 
-      {/* Global Search Bar */}
       <form onSubmit={handleSearch} className="flex-1 max-w-md hidden sm:block">
         <div className="relative flex items-center w-full">
           <Search className="w-4 h-4 absolute left-3.5 text-slate-400 pointer-events-none" />
@@ -113,9 +110,7 @@ export function TopNavbar() {
         </div>
       </form>
 
-      {/* Right controls */}
       <div className="flex items-center gap-3 sm:gap-4 ml-auto">
-        {/* Notification Bell with Interactive Dropdown */}
         <div className="relative">
           <button
             type="button"
@@ -132,10 +127,8 @@ export function TopNavbar() {
             )}
           </button>
 
-          {/* Notification Dropdown Menu */}
           {notificationsOpen && (
             <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95">
-              {/* Dropdown Header */}
               <div className="px-4 py-3 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900">
@@ -158,7 +151,6 @@ export function TopNavbar() {
                 )}
               </div>
 
-              {/* Notification Items List */}
               <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
                 {notifications.map((item) => {
                   const Icon = item.icon;
@@ -202,7 +194,6 @@ export function TopNavbar() {
                 })}
               </div>
 
-              {/* Dropdown Footer */}
               <div className="p-2.5 bg-slate-50/80 border-t border-slate-100 text-center">
                 <Link
                   to="/settings"
@@ -216,7 +207,6 @@ export function TopNavbar() {
           )}
         </div>
 
-        {/* User Profile Pill & Dropdown */}
         <div className="relative">
           <button
             type="button"
@@ -248,7 +238,6 @@ export function TopNavbar() {
             <ChevronDown className="w-4 h-4 text-slate-400 hidden sm:block" />
           </button>
 
-          {/* User Menu Dropdown */}
           {menuOpen && (
             <div
               className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 animate-in fade-in zoom-in-95"

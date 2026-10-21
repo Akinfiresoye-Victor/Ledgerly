@@ -24,20 +24,17 @@ const queryClient = new QueryClient({
 });
 
 export function App() {
-  // Smart initial boot splash screen
   const [showSplash, setShowSplash] = useState(true);
 
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        {/* Smart App Loading Splash Screen on initial boot */}
         {showSplash && (
           <LoadingScreen onComplete={() => setShowSplash(false)} duration={6000} />
         )}
 
         <BrowserRouter>
           <Routes>
-            {/* Standalone loading screen preview route */}
             <Route
               path="/loading"
               element={
@@ -48,12 +45,10 @@ export function App() {
               }
             />
 
-            {/* Public Authentication routes */}
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/verify-otp" element={<OtpVerificationPage />} />
             <Route path="/login" element={<LoginPage />} />
 
-            {/* Authenticated Dashboard & App routes */}
             <Route element={<AppLayout />}>
               <Route path="/" element={<DashboardPage />} />
               <Route path="/transactions" element={<TransactionsPage />} />
@@ -63,7 +58,6 @@ export function App() {
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
 
-            {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>

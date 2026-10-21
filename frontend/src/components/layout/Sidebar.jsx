@@ -26,12 +26,10 @@ export function Sidebar() {
 
   return (
     <aside className="hidden md:flex flex-col w-64 bg-[#08281F] text-white h-screen sticky top-0 shrink-0 border-r border-[#0D382B] select-none z-20">
-      {/* Brand Header */}
       <div className="p-6 pb-8">
         <BrandLogo variant="light" size="lg" />
       </div>
 
-      {/* Navigation Links */}
       <nav className="flex-1 px-4 space-y-1.5 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -55,7 +53,6 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* User Profile Pill at Bottom */}
       <div className="p-4 border-t border-[#0D382B]">
         <div className="flex items-center justify-between p-2 rounded-xl hover:bg-[#0D3529] transition-colors group">
           <NavLink to="/settings" className="flex items-center gap-3 min-w-0 flex-1">

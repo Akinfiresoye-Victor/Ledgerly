@@ -5,11 +5,6 @@ import { naira } from "../../lib/money";
 
 const COLORS = ["#10B981", "#F59E0B", "#3B82F6", "#8B5CF6", "#64748B"];
 
-/**
- * Custom Tooltip Component for Spending by Category Pie/Donut Chart.
- * Explicitly solid, 100% opaque dark-green background with mint text
- * and elevated z-index so it never appears transparent or overlaps with center text.
- */
 function CustomCategoryTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     const data = payload[0];
@@ -64,7 +59,6 @@ export function CategoryDonutChart({
       </div>
 
       <div className="relative h-56 w-full flex items-center justify-center">
-        {/* Center Display: Sits at z-0 behind the chart and tooltip */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 transition-all duration-200">
           {hoveredItem ? (
             <div className="flex flex-col items-center text-center animate-in fade-in duration-150">
@@ -85,7 +79,6 @@ export function CategoryDonutChart({
           )}
         </div>
 
-        {/* ResponsiveContainer with Recharts Pie & Tooltip at z-10 */}
         <ResponsiveContainer width="100%" height="100%" className="relative z-10">
           <PieChart>
             <Tooltip
@@ -118,7 +111,6 @@ export function CategoryDonutChart({
         </ResponsiveContainer>
       </div>
 
-      {/* Legend list */}
       <div className="mt-4 pt-4 border-t border-slate-100 space-y-2">
         {data.map((item, index) => {
           const isHovered = hoveredIndex === index;

@@ -28,7 +28,6 @@ export function DashboardPage() {
         const res = await dashboardApi.getSummary({ range: dateRange });
         return res.data;
       } catch (err) {
-        // Fallback to mock data for resilient offline development
         return mockDashboardSummary;
       }
     },
@@ -40,7 +39,6 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Greeting & Date Range Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -54,7 +52,6 @@ export function DashboardPage() {
           </p>
         </div>
 
-        {/* Date Filter Dropdown */}
         <div className="relative inline-flex items-center self-start sm:self-auto">
           <button
             type="button"
@@ -75,7 +72,6 @@ export function DashboardPage() {
         />
       )}
 
-      {/* 3 Metric Cards */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <CardSkeleton />
@@ -102,7 +98,6 @@ export function DashboardPage() {
         </div>
       )}
 
-      {/* Charts Dual Column */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2">
           <IncomeExpenseChart data={data.income_vs_expenses} />
@@ -115,7 +110,6 @@ export function DashboardPage() {
         </div>
       </div>
 
-      {/* AI Insight & Recent Activity Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
         <div className="lg:col-span-2 space-y-4">
           <AiInsightBanner

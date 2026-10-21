@@ -1,10 +1,6 @@
 import React from 'react';
 
-/**
- * BrandPanel - Left brand panel featuring the restored brand header,
- * clean typography, and a live animated SVG/CSS smartphone component
- * with moving charts, pulsing metrics, donut ring, and AI insights.
- */
+
 export function BrandPanel() {
   return (
     <div className="hidden lg:flex lg:w-1/2 min-h-screen relative flex-col justify-between p-8 xl:p-12 bg-[#06231A] text-white overflow-hidden select-none">
@@ -77,7 +73,7 @@ export function BrandPanel() {
       <div className="relative z-10 w-full max-w-[320px] xl:max-w-[345px] mx-auto my-2 scale-95 origin-center animate-float-slow">
         {/* Smartphone Hardware Frame */}
         <div className="border-[7px] border-slate-800 rounded-[38px] shadow-[0_20px_50px_rgba(0,0,0,0.6)] bg-white overflow-hidden relative text-slate-900">
-          
+
           {/* Top Notch & Status Bar */}
           <div className="bg-[#04281E] px-4 pt-1.5 pb-2 text-white relative">
             <div className="flex items-center justify-between text-[10px] font-semibold tracking-tight text-slate-200 px-1">
