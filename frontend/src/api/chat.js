@@ -1,7 +1,7 @@
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import api from "./client";
 
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export async function streamChat({
   conversationId,
@@ -14,14 +14,14 @@ export async function streamChat({
   onDone,
   onError,
 }) {
-  const token = localStorage.getItem("access");
+  const token = localStorage.getItem("token") || localStorage.getItem("access");
 
   try {
     await fetchEventSource(`${BASE}/chat/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(token ? { Authorization: `Token ${token}` } : {}),
       },
       body: JSON.stringify({
         conversation_id: conversationId,

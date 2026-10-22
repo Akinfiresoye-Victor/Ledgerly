@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layout/AuthLayout";
 import Input from "../../components/ui/Input";
@@ -65,10 +65,10 @@ export function LoginPage() {
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
-          label="Email address"
+          label="Username or Email"
           required
-          type="email"
-          placeholder="you@example.com"
+          type="text"
+          placeholder="alex or you@example.com"
           value={formData.email}
           onChange={(e) =>
             setFormData({ ...formData, email: e.target.value })

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const api = axios.create({ 
   baseURL: BASE,
   headers: {
@@ -8,42 +9,32 @@ export const api = axios.create({
   }
 });
 
-// Attach the access token to every request
+// Attach the Knox/DRF Token to every request
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access");
+  const token = localStorage.getItem("token") || localStorage.getItem("access");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Token ${token}`;
   }
   return config;
 });
 
-// If we get a 401, try once to refresh the token, then retry the request
+// Response interceptor: handle 401 unauthorized responses
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const original = error.config;
-    if (error.response?.status === 401 && !original._retried) {
-      original._retried = true;
-      try {
-        const refreshToken = localStorage.getItem("refresh");
-        if (!refreshToken) {
-          throw new Error("No refresh token available");
-        }
-        const { data } = await axios.post(`${BASE}/auth/refresh/`, {
-          refresh: refreshToken,
-        });
-        localStorage.setItem("access", data.access);
-        original.headers.Authorization = `Bearer ${data.access}`;
-        return api(original);
-      } catch (refreshErr) {
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
-        localStorage.removeItem("user");
-        // Only redirect if not already on an auth page
-        if (!window.location.pathname.startsWith("/login") && !window.location.pathname.startsWith("/signup") && !window.location.pathname.startsWith("/verify-otp")) {
-          window.location.href = "/login";
-        }
-        return Promise.reject(refreshErr);
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      localStorage.removeItem("user");
+
+      const path = window.location.pathname;
+      if (
+        !path.startsWith("/login") &&
+        !path.startsWith("/signup") &&
+        !path.startsWith("/verify-otp")
+      ) {
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);

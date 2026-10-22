@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 
 async function enableMocking() {
-  if (import.meta.env.VITE_ENABLE_MSW === "true" || import.meta.env.DEV) {
+  if (import.meta.env.VITE_ENABLE_MSW === "true") {
     try {
       const { worker } = await import("./mocks/browser");
       return worker.start({

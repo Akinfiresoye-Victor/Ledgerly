@@ -8,28 +8,29 @@ import {
   mockDraftReceipt,
 } from "./mockData";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 let transactionsList = [...mockTransactions];
 let currentUser = { ...mockUser };
 
 export const handlers = [
-  // Auth: Register
+  // Auth: Register (matches Django backend RegistrationView)
   http.post(`${API}/auth/register/`, async ({ request }) => {
     const body = await request.json();
     currentUser = {
       ...currentUser,
-      full_name: body.full_name || currentUser.full_name,
+      username: body.username || "alex",
+      full_name: body.full_name || body.username || currentUser.full_name,
       email: body.email || currentUser.email,
       phone: body.phone || currentUser.phone,
       business_name: body.business_name || currentUser.business_name,
     };
     await delay(600);
     return HttpResponse.json({
-      message: "Account created. Please verify your email.",
-      email: currentUser.email,
-      requires_verification: true,
-    });
+      token: "mock_knox_token_ledgerly_12345",
+      username: currentUser.username,
+      message: "Registration successful. Please check your mail for the OTP to verify your account.",
+    }, { status: 201 });
   }),
 
   // Auth: Verify OTP
@@ -39,13 +40,12 @@ export const handlers = [
     if (code === "123450" || code === "000000") {
       // Simulate invalid code for testing the incorrect code screen
       return HttpResponse.json(
-        { error: { code: "invalid_otp", message: "The code you entered is invalid. Please check and try again." } },
+        { error: "The code you entered is invalid. Please check and try again." },
         { status: 400 }
       );
     }
     return HttpResponse.json({
-      access: "mock_jwt_access_token_ledgerly_12345",
-      refresh: "mock_jwt_refresh_token_ledgerly_67890",
+      token: "mock_knox_token_ledgerly_12345",
       user: currentUser,
     });
   }),
@@ -56,34 +56,35 @@ export const handlers = [
     return HttpResponse.json({ message: "A new 6-digit verification code has been sent." });
   }),
 
-  // Auth: Login
+  // Auth: Login (matches Django backend LoginView)
   http.post(`${API}/auth/login/`, async ({ request }) => {
     const body = await request.json();
     await delay(500);
     if (body.password === "wrongpassword") {
       return HttpResponse.json(
-        { error: { code: "invalid_credentials", message: "Invalid email or password." } },
-        { status: 401 }
+        { error: "Invalid credentials" },
+        { status: 400 }
       );
     }
     return HttpResponse.json({
-      access: "mock_jwt_access_token_ledgerly_12345",
-      refresh: "mock_jwt_refresh_token_ledgerly_67890",
-      user: currentUser,
+      token: "mock_knox_token_ledgerly_12345",
+      message: "Login Successfull",
     });
   }),
 
-  // Auth: Refresh Token
-  http.post(`${API}/auth/refresh/`, async () => {
-    await delay(200);
-    return HttpResponse.json({
-      access: "mock_refreshed_jwt_access_token_" + Date.now(),
-    });
-  }),
-
-  // Auth: Profile
+  // Auth: Profile (matches Django backend ProtectedProfileView)
   http.get(`${API}/auth/profile/`, () => {
-    return HttpResponse.json(currentUser);
+    return HttpResponse.json({
+      username: currentUser.username || "alex",
+      is_authenticated: true,
+    });
+  }),
+
+  // Auth: Logout (matches Django backend LogoutView)
+  http.post(`${API}/auth/logout/`, () => {
+    return HttpResponse.json({
+      message: "Successfully logged out.",
+    });
   }),
 
   http.patch(`${API}/auth/profile/`, async ({ request }) => {
